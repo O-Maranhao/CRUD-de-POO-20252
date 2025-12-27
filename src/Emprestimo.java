@@ -24,10 +24,24 @@ public class Emprestimo {
         this.livro = livro;
         this.usuario = usuario;
         this.dataEmprestimo = LocalDate.now(); // isso aqui tá pegando o tempo de exatamente agora
-        this.dataDevolucaoPrevista = dataEmprestimo.plusDays(PRAZO_PADRAO); // já emplaca duas semanas, mas podemos mudar dependendo do tipo do usuário
+        this.dataDevolucaoPrevista = dataDevolucao(); // vai chamar o método que verifica se o Usuário é professor ou aluno ou o bibliotecário
         this.dataDevolucaoReal = null; // O cara ainda não devolveu né.
     }
     // MÉTODOS
+    //Definir prazo de entrega
+    private LocalDate dataDevolucao(){//Data do Prazo da Devolução
+        String tipo = this.usuario.tipoUsuario();
+        switch(tipo){
+            case "Discente": //se for aluno
+                return dataEmprestimo.plusDays(15); //deve devolver daqui a 15 dias
+            case "Docente": //se for docente
+                return dataEmprestimo.plusDays(30); //deve devolver daqui a 30 dias
+            case "Bibliotecario": //se for bibliotecario
+                return dataEmprestimo.plusDays(69); //deve devolver daqui a 69 dias
+            default:
+                return dataEmprestimo.plusDays(PRAZO_PADRAO);
+        }
+    }
     // verificar atraso
     public boolean verificarAtraso() {
         // Se o livro estiver atrasado, é verdadeiro, se não for, é falso
@@ -72,7 +86,7 @@ public class Emprestimo {
         } else {
             sb.append("Livro ainda não devolvido.\n");
         }
-
+        sb.append("/////////////////////////////////////////////////////////////\n");
         return sb.toString();
     }
     // Getters - para acessar dados do empréstimo quando necessário. Se for necessario kk.

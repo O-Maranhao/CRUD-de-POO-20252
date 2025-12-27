@@ -13,24 +13,24 @@ public class Livro{
         this.quantidadeDisponivel = quantidadeDisponivel;
     }
     //Métodos do Livro
-    public boolean emprestar(){
-        if(!estaDisponivel()){ //Se não tiver livro pra emprestar
-            IO.println("Não emprestado! O livro está indisponível");
-            return false;
+    public boolean emprestar()throws MsgException{
+        if(!estaDisponivel()){ //Se não tiver livro pra emprestar. uma mensagem vai aparecer 
+            throw new MsgException("Não emprestado! O livro está indisponível");
         }
         this.quantidadeDisponivel--; //Subtrai um livro da quantidade total
-        IO.println("Emprestado! O livro possui agora " +this.quantidadeDisponivel+" cópia(s)");
+        //Colocar no menu a mensagem IO.println("Emprestado! O livro possui agora " +this.quantidadeDisponivel+" cópia(s)");
         return true;
     }
     public void devolver(){ //adiciona o livro
         this.quantidadeDisponivel++;
     }
-    public boolean estaDisponivel(){ //verifica se o livro está disponível, é importante
+    public boolean estaDisponivel() throws MsgException{ //verifica se o livro está disponível, é importante
         if(this.quantidadeDisponivel>0){
             IO.println("O Livro está disponível, há " +this.quantidadeDisponivel+ " cópia(s)");
             return true;
+        } else{
+            throw new MsgException("Fail: Livro Indisponível");
         }
-        return false;
     }
     public void exibirInformacoes(){ //exibe as informações do livro
         IO.println("Título: " + titulo);
