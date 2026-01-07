@@ -8,8 +8,25 @@ class LivroIndisponivel extends Exception{
         super(mensagem);
     }
 }
+class NaoEncontrado extends Exception{
+    protected NaoEncontrado(String mensagem){
+        super(mensagem);
+    }
+}
+
 class LimiteEmprestimo extends Exception{
     protected LimiteEmprestimo(String mensagem){
         super(mensagem);
+    }
+}
+
+class PermissaoNegada extends Exception{
+    public PermissaoNegada(){
+        super("Fail: Permissão negada pois apenas Admins podem acessar");
+    }
+}
+class ComandoInvalido extends Exception{
+    public ComandoInvalido(){
+        super("Fail: comando invalido ne patrao");
     }
 }

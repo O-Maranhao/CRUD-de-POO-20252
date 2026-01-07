@@ -16,7 +16,7 @@ abstract class Usuario {
 
     //Métodos
     public abstract String tipoUsuario();
-    public Emprestimo realizarEmprestimo(Livro livro) throws MsgException{
+    public Emprestimo realizarEmprestimo(Livro livro) throws Exception{
         //Vamo lá, primeiro verificar quantos empréstimos cada um pode fazer
         int limite;
         switch(this.tipoUsuario()){
@@ -36,7 +36,7 @@ abstract class Usuario {
 
         //Verficando se o limite foi atingido
         if(limite<=this.emprestimos.size()){
-            throw new MsgException("Fail:"+this.nome+"atingiu o limite de Empréstimos para "+tipoUsuario());
+            throw new LimiteEmprestimo("Fail:"+this.nome+"atingiu o limite de Empréstimos para "+tipoUsuario());
         }
         if(livro.estaDisponivel()){
             livro.emprestar();
@@ -44,7 +44,7 @@ abstract class Usuario {
             emprestimos.add(e);
             return e;
         } else{
-            throw new MsgException("Fail: Livro não Disponível");
+            throw new LivroIndisponivel("Fail: Livro não Disponível");
         }
     }
     public void devolverLivro(Emprestimo emprestimo){
@@ -74,6 +74,16 @@ abstract class Usuario {
         }
 
         return atrasados;
+    }
+    //Métodos de Get
+    public String getNome(){
+        return nome;
+    }
+    public int getMatricula(){
+        return matricula;
+    }
+    public ArrayList<Emprestimo> getEmprestimos(){
+        return emprestimos;
     }
 }
 

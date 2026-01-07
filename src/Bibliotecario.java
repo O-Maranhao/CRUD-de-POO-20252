@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Bibliotecario extends Usuario{
     private boolean permissao_admin;
@@ -14,23 +14,47 @@ public class Bibliotecario extends Usuario{
 
     //Métodos foda que só o Bibliotecário tem
     //Cadastrar Livro
-    public Livro cadastrarLivro(Livro livro){
-        return null;
+    public Livro cadastrarLivro(SistemaBiblioteca sistema, String titulo, String autor, String genero, int quantidadeDisponivel) throws Exception{
+        if(!permissao_admin){ 
+            throw new PermissaoNegada();
+        }
+        Livro novoLivro = new Livro(titulo, autor, genero, quantidadeDisponivel);
+        sistema.livros.add(novoLivro); //Isso aqui é um uso de encapsulamento, espero que dê certo
+        IO.println("Sucesso! Livro Cadastrado!");
+        return novoLivro;
     }
     //Remover livro
-    public void removerLivro(Livro livro){
+    public void removerLivro(SistemaBiblioteca sistema, String titulo) throws Exception {
+        if(!permissao_admin){ 
+            throw new PermissaoNegada();
+        }
+        sistema.removerLivro(titulo); //Método do Sistema Biblioteca que vai exigir 
+        IO.println("Sucesso! Livro removido!");
         return ;
     }
     //Editar Livro
-    public void editarLivro(Livro livro){
+    public void editarLivro(String novoTitulo, String novoAutor, String novoGenero, int novaQuantidade) throws Exception {
+        if(!permissao_admin){ 
+            throw new PermissaoNegada();
+        }
+        sistema.editarLivro(novoTitulo, novoAutor, novoGenero, novaQuantidade);
+        IO.println("Sucesso! Livro editado!");
         return ;
     }
     //Remover Usuario
-    public void removerUsuario(Usuario usuario){
+    public void removerUsuario(String nome) throws Exception{
+        if(!permissao_admin){ 
+            throw new PermissaoNegada();
+        }
+        sistema.removerUsuario(nome);
+        IO.println("Sucesso! Usuario removido!");
         return ;
     }
     //Editar Usuario
-    public void editarUsuario(Usuario usuario){
+    public void editarUsuario(String nome)throws Exception{
+        if(!permissao_admin){ 
+            throw new PermissaoNegada();
+        }
         return ;
     }
     //Listar Usuarios
@@ -39,7 +63,8 @@ public class Bibliotecario extends Usuario{
         return usuarios;
     }
     //Vizualizar Relatorios
-    public void vizualizarRelatorio(Livro livro){
+    public void vizualizarRelatorio(String titulo){
+
         return ;
     }
 }
