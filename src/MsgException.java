@@ -30,3 +30,9 @@ class ComandoInvalido extends Exception{
         super("Fail: comando invalido ne patrao");
     }
 }
+class JeniferCaloteira extends Exception{
+    public JeniferCaloteira(){
+        super("Fail: devolveu mas nao pagou");
+    }
+}
+
