@@ -1,2 +1,0 @@
-Este projeto implementa um CRUD (Create, Read, Update, Delete) para um sistema de gerenciamento de biblioteca, desenvolvido com os princípios da Programação Orientada a Objetos (POO). O objetivo é permitir o cadastro, consulta, atualização e remoção de livros, usuários e empréstimos, simulando o funcionamento básico de uma biblioteca.
-Feito por João Filipe Fonseca, Ana Luiza Silva, Jenifer Carolina Silva, graduandos do curso de Engenharia de Software da Universidade Federal do Ceará.
