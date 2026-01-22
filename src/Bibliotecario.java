@@ -19,7 +19,7 @@ public class Bibliotecario extends Usuario{
             throw new PermissaoNegada();
         }
         Livro novoLivro = new Livro(titulo, novoAutor, novoGenero, quantidadeDisponivel);
-        sistema.livros.add(novoLivro); //Isso aqui é um uso de encapsulamento, espero que dê certo
+        sistema.cadastrarLivro(novoLivro); //Isso aqui é um uso de encapsulamento, espero que dê certo
         IO.println("Sucesso! Livro Cadastrado!");
         return novoLivro;
     }

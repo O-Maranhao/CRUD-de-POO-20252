@@ -1,14 +1,25 @@
 import java.util.*;
 
 public class SistemaBiblioteca {
-    protected ArrayList<Livro> livros;
-    protected ArrayList<Usuario> usuarios;
-    protected ArrayList<Emprestimo> emprestimos;
+    private ArrayList<Livro> livros;
+    private ArrayList<Usuario> usuarios;
+    private ArrayList<Emprestimo> emprestimos;
 
     public SistemaBiblioteca() {
         this.livros = new ArrayList<>();
         this.usuarios = new ArrayList<>();
         this.emprestimos = new ArrayList<>();
+    }
+
+    public void cadastrarLivro(Livro livro) {
+        livros.add(livro);
+}
+    public void cadastrarUsuario(Usuario usuario){
+        usuarios.add(usuario);
+    }
+
+    public void adicionarEmprestimo(Emprestimo emprestimo){
+        emprestimos.add(emprestimo);
     }
 
     public void removerLivro(String titulo) throws NaoEncontrado{
