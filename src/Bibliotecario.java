@@ -14,12 +14,12 @@ public class Bibliotecario extends Usuario{
 
     //Métodos foda que só o Bibliotecário tem
     //Cadastrar Livro
-    public Livro cadastrarLivro(SistemaBiblioteca sistema, String titulo, String autor, String genero, int quantidadeDisponivel) throws Exception{
+    public Livro cadastrarLivro(SistemaBiblioteca sistema, String titulo, String novoTitulo, String novoAutor, String novoGenero, int quantidadeDisponivel) throws Exception{
         if(!permissao_admin){ 
             throw new PermissaoNegada();
         }
-        Livro novoLivro = new Livro(titulo, autor, genero, quantidadeDisponivel);
-        sistema.livros.add(novoLivro); //Isso aqui é um uso de encapsulamento, espero que dê certo
+        Livro novoLivro = new Livro(titulo, novoAutor, novoGenero, quantidadeDisponivel);
+        sistema.cadastrarLivro(novoLivro); //Isso aqui é um uso de encapsulamento, espero que dê certo
         IO.println("Sucesso! Livro Cadastrado!");
         return novoLivro;
     }
@@ -33,16 +33,16 @@ public class Bibliotecario extends Usuario{
         return ;
     }
     //Editar Livro
-    public void editarLivro(String novoTitulo, String novoAutor, String novoGenero, int novaQuantidade) throws Exception {
+    public void editarLivro(SistemaBiblioteca sistema, String titulo, String novoTitulo, String novoAutor, String novoGenero, int novaQuantidade) throws Exception {
         if(!permissao_admin){ 
             throw new PermissaoNegada();
         }
-        sistema.editarLivro(novoTitulo, novoAutor, novoGenero, novaQuantidade);
+        sistema.editarLivro(titulo, novoTitulo, novoAutor, novoGenero, novaQuantidade);
         IO.println("Sucesso! Livro editado!");
         return ;
     }
     //Remover Usuario
-    public void removerUsuario(String nome) throws Exception{
+    public void removerUsuario(SistemaBiblioteca sistema, String nome) throws Exception{
         if(!permissao_admin){ 
             throw new PermissaoNegada();
         }

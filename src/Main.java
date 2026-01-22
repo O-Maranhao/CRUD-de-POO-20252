@@ -6,7 +6,7 @@ public class Main {
         Bibliotecario admin = new Bibliotecario("Rubens", 123, true);
 
         while (true) {
-            String[] line = IO.inputPartsPrintingLine();
+            String[] line = IO.inputParts();
 
             try {
                 if      (line[0].equals("end"))            { break; }
