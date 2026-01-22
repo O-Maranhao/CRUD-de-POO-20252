@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] arg) {
         System.out.println("side_by_side=080");
 
-        SistemaBiblioteca sistema = new SistemaBiblioteca();
+        SistemaBiblioteca sis = new SistemaBiblioteca();
         Bibliotecario admin = new Bibliotecario("Rubens", 123, true);
 
         while (true) {
@@ -10,11 +10,13 @@ public class Main {
 
             try {
                 if      (line[0].equals("end"))            { break; }
-                else if (line[0].equals("init"))           { sistema = new SistemaBiblioteca(); }
-                else if (line[0].equals("showLivros"))     {}
+                else if (line[0].equals("init"))           { sis = new SistemaBiblioteca(); sis.menuPrincipal();}
+                // else if (line[0].equals("showLivros"))     { sis.listarLivros();}
                 else if (line[0].equals("showUsuarios"))   {}
-                else if (line[0].equals("cadastrarLivro")) {}
-                else if (line[0].equals("cadastrarUsuario")){}
+                else if (line[0].equals("cadastrarLivro")) { sis.cadastrarLivro(admin, line[1], line[2], line[3], IO.strToInt(line[4]));}
+                else if (line[0].equals("cadastrarUsuario")){ sis.cadastrarUsuario(admin, line[1]);}
+                else if (line[0].equals("removerLivro"))    {sis.removerLivro(admin, line[1]);}
+                else if (line[0].equals("removerUsuario"))  {sis.removerUsuario(admin, line[1]);}
                 else if (line[0].equals("emprestar"))      {}
                 else if (line[0].equals("devolver"))       {}
                 else if (line[0].equals("pesquisarLivro")) {}
