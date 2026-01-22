@@ -3,9 +3,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class SistemaBiblioteca {
-    private ArrayList<Livro> livros;
-    private ArrayList<Usuario> usuarios;
-    private ArrayList<Emprestimo> emprestimos;
+    protected ArrayList<Livro> livros;
+    protected ArrayList<Usuario> usuarios;
+    protected ArrayList<Emprestimo> emprestimos;
 
 
     
