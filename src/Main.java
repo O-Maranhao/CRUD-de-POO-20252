@@ -1,5 +1,7 @@
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] arg) {
+    public static void main(String[] arg) throws IOException, LerException {
         System.out.println("side_by_side=080");
 
         SistemaBiblioteca sistema = new SistemaBiblioteca();

@@ -14,8 +14,22 @@ public class Emprestimo {
     private static final int PRAZO_PADRAO = 30; // prazo padrão de devolução em dias
     private static final float MULTA_POR_DIA = 1000.0f; // valor da multa diária (R$ 1000,00 pra ferrar todo mundo hehehe)
 
-    // Construtor
     public Emprestimo(Livro livro, Usuario usuario) {
+        // Verificações básicas para evitar nullPointerException e manter consistência
+        if (livro == null || usuario == null) {
+            throw new IllegalArgumentException("Livro e Usuário não podem ser nulos, né pae");
+        }
+
+        this.livro = livro;
+        this.usuario = usuario;
+        this.dataEmprestimo = LocalDate.now(); // isso aqui tá pegando o tempo de exatamente agora
+        this.dataDevolucaoPrevista = dataDevolucao(); // vai chamar o método que verifica se o Usuário é professor ou aluno ou o bibliotecário
+        this.dataDevolucaoReal = null; // O cara ainda não devolveu né.
+    }
+
+    // Construtor do banco de dados emprestimosArq
+    public Emprestimo(Livro livro, Usuario usuario, LocalDate dataEmprestimo,
+                  LocalDate dataDevolucaoPrevista, LocalDate dataDevolucaoReal) {
         // Verificações básicas para evitar nullPointerException e manter consistência
         if (livro == null || usuario == null) {
             throw new IllegalArgumentException("Livro e Usuário não podem ser nulos, né pae");

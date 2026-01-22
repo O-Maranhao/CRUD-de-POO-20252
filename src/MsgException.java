@@ -42,6 +42,13 @@ class LivroException extends Exception{
     }
 }
 
+class LerException extends Exception{
+    public LerException(String message){
+        super(message);
+    }
+}
+
+
 class JeniferCaloteira extends Exception{
     public JeniferCaloteira(){
         super("Fail: devolveu mas nao pagou");
