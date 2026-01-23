@@ -13,9 +13,9 @@ public class Livro{
         this.quantidadeDisponivel = quantidadeDisponivel;
     }
     //Métodos do Livro
-    public boolean emprestar()throws MsgException{
+    public boolean emprestar()throws Exception{
         if(!estaDisponivel()){ //Se não tiver livro pra emprestar. uma mensagem vai aparecer 
-            throw new MsgException("Não emprestado! O livro está indisponível");
+            throw new LivroIndisponivel("Não emprestado! O livro está indisponível");
         }
         this.quantidadeDisponivel--; //Subtrai um livro da quantidade total
         //Colocar no menu a mensagem IO.println("Emprestado! O livro possui agora " +this.quantidadeDisponivel+" cópia(s)");
@@ -24,12 +24,12 @@ public class Livro{
     public void devolver(){ //adiciona o livro
         this.quantidadeDisponivel++;
     }
-    public boolean estaDisponivel() throws MsgException{ //verifica se o livro está disponível, é importante
+    public boolean estaDisponivel() throws Exception{ //verifica se o livro está disponível, é importante
         if(this.quantidadeDisponivel>0){
             IO.println("O Livro está disponível, há " +this.quantidadeDisponivel+ " cópia(s)");
             return true;
         } else{
-            throw new MsgException("Fail: Livro Indisponível");
+            throw new LivroIndisponivel("Fail: Livro Indisponível");
         }
     }
     public void exibirInformacoes(){ //exibe as informações do livro

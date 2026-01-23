@@ -19,7 +19,7 @@ public class Bibliotecario extends Usuario{
             throw new PermissaoNegada();
         }
         Livro novoLivro = new Livro(novoTitulo, novoAutor, novoGenero, quantidadeDisponivel);
-        sistema.livros.add(novoLivro); //Isso aqui é um uso de encapsulamento, espero que dê certo
+        sistema.cadastrarLivro(novoLivro);//espero que dê certo
         IO.println("Sucesso! Livro Cadastrado!");
         return novoLivro;
     }
@@ -28,7 +28,7 @@ public class Bibliotecario extends Usuario{
         if(!permissao_admin){ 
             throw new PermissaoNegada();
         }
-        for(Livro le : sistema.livros){
+        for(Livro le : sistema.){
             if(le.getTitulo().equalsIgnoreCase(titulo)){
                 sistema.livros.remove(le);
                 IO.println("Sucesso! Livro removido!");

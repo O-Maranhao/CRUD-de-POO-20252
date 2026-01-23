@@ -15,10 +15,10 @@ public class Main {
                 else if (line[0].equals("init"))           { sis = new SistemaBiblioteca(); sis.menuPrincipal();}
                 // else if (line[0].equals("showLivros"))     { sis.listarLivros();}
                 else if (line[0].equals("showUsuarios"))   {}
-                else if (line[0].equals("cadastrarLivro")) { sis.cadastrarLivro(admin, line[1], line[2], line[3], IO.strToInt(line[4]));}
-                else if (line[0].equals("cadastrarUsuario")){ sis.cadastrarUsuario(admin, line[1]);}
-                else if (line[0].equals("removerLivro"))    {sis.removerLivro(admin, line[1]);}
-                else if (line[0].equals("removerUsuario"))  {sis.removerUsuario(admin, line[1]);}
+                else if (line[0].equals("cadastrarLivro")) { Livro livro = new Livro(line[1], line[2], line[3], IO.strToInt(line[4])); sis.cadastrarLivro(livro);}
+                else if (line[0].equals("cadastrarUsuario")){ sis.cadastrarUsuario(line[1], line[2], IO.strToInt(line[3]));}
+                else if (line[0].equals("removerLivro"))    {sis.removerLivro(line[1]);}
+                else if (line[0].equals("removerUsuario"))  {sis.removerUsuario(line[1]);}
                 else if (line[0].equals("emprestar"))      {}
                 else if (line[0].equals("devolver"))       {}
                 else if (line[0].equals("pesquisarLivro")) {}
