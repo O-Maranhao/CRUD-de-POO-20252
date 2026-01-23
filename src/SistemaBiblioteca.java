@@ -77,7 +77,7 @@ public class SistemaBiblioteca {
         if (e.getUsuario().getNome().equalsIgnoreCase(nomeUsuario) && 
             e.getLivro().getTitulo().equalsIgnoreCase(tituloLivro) && 
             e.getDataDevolucaoReal() == null) {
-            
+        
             e.setDataDevolucaoReal(LocalDate.now()); // Data de hoje
             e.getLivro().setQuantidadeDisponivel(e.getLivro().getQuantidadeDisponivel() + 1);
             IO.println("Sucesso: Livro devolvido!");

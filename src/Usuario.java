@@ -85,6 +85,13 @@ abstract class Usuario {
     public ArrayList<Emprestimo> getEmprestimos(){
         return emprestimos;
     }
+    //Métodos de Set
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+    public void setMatricula(int matricula){
+        this.matricula = matricula;
+    }
 }
 
 

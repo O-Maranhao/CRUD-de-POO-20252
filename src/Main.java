@@ -26,7 +26,7 @@ public class Main {
                 else if (line[0].equals("emprestar"))      { sis.adicionarEmprestimo(line[1], IO.strToInt(line[2]));}
                 else if (line[0].equals("devolver"))       {}
                 else if (line[0].equals("pesquisarLivro")) {
-Livro l = sis.pesquisarLivro(line[1]);
+                Livro l = sis.pesquisarLivro(line[1]);
                     if(l != null) IO.println("Encontrado: " + l.getTitulo() + " por " + l.getAutor());
                     else IO.println("fail: livro nao encontrado");
                 }

@@ -119,4 +119,7 @@ public class Emprestimo {
     public LocalDate getDataDevolucaoReal() {
         return dataDevolucaoReal;
     }
+    public void setDataDevolucaoReal(LocalDate dataDevolucaoReal) {
+        this.dataDevolucaoReal = dataDevolucaoReal;
+    }
 }

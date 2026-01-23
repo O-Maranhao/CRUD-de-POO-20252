@@ -76,20 +76,15 @@ public class Bibliotecario extends Usuario{
     //     throw new NaoEncontrado("Fail: Livro nao encontrado");
     // }
     //Editar Usuario
-    public void editarUsuario(String nome)throws Exception{
-        if(!permissao_admin){ 
-            throw new PermissaoNegada();
-        }
-        return ;
-    }
+    // public void editarUsuario(String nome)throws Exception{
+    //     if(!permissao_admin){ 
+    //         throw new PermissaoNegada();
+    //     }
+    //     return ;
+    // }
     //Listar Usuarios
-    public ArrayList<Usuario> listarUsuarios(){
-        ArrayList<Usuario> usuarios = new ArrayList<Usuario>(   );
-        return usuarios;
-    }
-    //Vizualizar Relatorios
-    public void vizualizarRelatorio(String titulo){
-        
-        return ;
-    }
+    // public ArrayList<Usuario> listarUsuarios(){
+    //     ArrayList<Usuario> usuarios = new ArrayList<Usuario>(   );
+    //     return usuarios;
+    // }
 }
