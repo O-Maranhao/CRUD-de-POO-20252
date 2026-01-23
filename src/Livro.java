@@ -32,11 +32,13 @@ public class Livro{
             throw new LivroIndisponivel("Fail: Livro Indisponível");
         }
     }
-    public void exibirInformacoes(){ //exibe as informações do livro
-        IO.println("Título: " + titulo);
-        IO.println("Autor: " + autor);
-        IO.println("Gênero: " + genero);
-        IO.println("Disponível: " + quantidadeDisponivel);   
+    public String exibirInformacoes(){ //exibe as informações do livro
+        String ss="";
+        ss+="Título: " + titulo;
+        ss+=";Autor: " + autor;
+        ss+=";Gênero: " + genero;
+        ss+=";Disponível: " + quantidadeDisponivel;   
+        return ss;
     }
 
 

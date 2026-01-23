@@ -27,7 +27,7 @@ public class Emprestimo {
         this.dataDevolucaoReal = null; // O cara ainda não devolveu né.
     }
 
-    // Construtor do banco de dados emprestimosArq
+    // Construtor do banco de dados emprestimosArq ( uso de um super construtor aqui foi brilhante!)
     public Emprestimo(Livro livro, Usuario usuario, LocalDate dataEmprestimo,
                   LocalDate dataDevolucaoPrevista, LocalDate dataDevolucaoReal) {
         // Verificações básicas para evitar nullPointerException e manter consistência

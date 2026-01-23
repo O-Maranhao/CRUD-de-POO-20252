@@ -3,32 +3,89 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class SistemaBiblioteca {
-    protected ArrayList<Livro> livros;
-    protected ArrayList<Usuario> usuarios;
-    protected ArrayList<Emprestimo> emprestimos;
-
-
+    private ArrayList<Livro> livros;
+    private ArrayList<Usuario> usuarios;
+    private ArrayList<Emprestimo> emprestimos;
     
     public SistemaBiblioteca() throws LerException, IOException {
         this.livros = new ArrayList<>();
         this.usuarios = new ArrayList<>();
         this.emprestimos = new ArrayList<>();
-
+            
         livrosArq();
         emprestimosArq();
         usuariosArq();
     }
 
-    public void cadastrarLivro(Livro livro) {
-        livros.add(livro);
-}
-    public void cadastrarUsuario(Usuario usuario){
-        usuarios.add(usuario);
+    //metodo de busca
+    protected Livro pesquisarLivro(String titulo){
+        for (Livro l : livros){
+            if(l.getTitulo().equalsIgnoreCase(titulo)) return l;
+        }
+        return null; //se nao achar retorna nada
+    }
+    protected Usuario pesquisarUsuario(int matricula){
+        for (Usuario u : usuarios){
+            if (u.getMatricula()==matricula) { return u; }// achou
+        }
+        return null; //se nao achar retorna nada
+    }
+    
+    //Cadastro de livro
+    public void adicionarLivro(Livro novoLivro){
+        this.livros.add(novoLivro);
+        IO.println("Sistema: Livro '" + novoLivro.getTitulo() + "' guardado com sucesso.");
+    }
+    
+    public void cadastrarLivro(Livro livro){
+        livros.add(livro); 
+    }
+    public void cadastrarUsuario(String tipo, String nome, int matricula) throws Exception{ 
+        switch(tipo){
+            case "a":
+                Usuario a = new Discente(nome, matricula);
+                this.usuarios.add(a);
+                break;
+            case "b":
+                Usuario b = new Docente(nome, matricula);
+                this.usuarios.add(b);
+                break;
+            case "c":
+                Usuario c = new Bibliotecario(nome, matricula, true);
+                this.usuarios.add(c);
+                break;
+            default:
+                throw new ComandoInvalido();
+        }
+        //usuarios.add(usuario);
     }
 
-    public void adicionarEmprestimo(Emprestimo emprestimo){
-        emprestimos.add(emprestimo);
+    public void adicionarEmprestimo(String titulo, int matricula) throws Exception{
+        Livro livro = pesquisarLivro(titulo);
+        Usuario usuario = pesquisarUsuario(matricula);
+        if(usuario!=null && livro !=null ){
+            Emprestimo emprestimo = new Emprestimo(livro, usuario);
+            emprestimos.add(emprestimo);
+            usuario.realizarEmprestimo(livro);
+            livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel()-1);
+            IO.println("Sucesso, Livro emprestado!");
+        }
     }
+    //devoluçao
+    public void realizarDevolucao(String nomeUsuario, String tituloLivro) throws Exception {
+    for (Emprestimo e : emprestimos) {
+        if (e.getUsuario().getNome().equalsIgnoreCase(nomeUsuario) && 
+            e.getLivro().getTitulo().equalsIgnoreCase(tituloLivro) && 
+            e.getDataDevolucaoReal() == null) {
+            
+            e.setDataDevolucaoReal(LocalDate.now()); // Data de hoje
+            e.getLivro().setQuantidadeDisponivel(e.getLivro().getQuantidadeDisponivel() + 1);
+            IO.println("Sucesso: Livro devolvido!");
+            return;
+        }
+    }
+    throw new Exception("fail: emprestimo nao encontrado");
+}
 
     public void removerLivro(String titulo) throws NaoEncontrado{
         //procura - acha - remove
@@ -56,6 +113,22 @@ public class SistemaBiblioteca {
         }
         throw new UsuarioException("fail: usuario não encontrado no sistema.");
     }
+    //Devolução
+    public void devolverLivro(String titulo, int matricula) throws Exception{
+        Emprestimo encontrado = null;
+        Usuario usuario = pesquisarUsuario(matricula);
+        if(usuario!=null){
+            for(Emprestimo e : usuario.getEmprestimos()){
+                if(e.getLivro().getTitulo().equalsIgnoreCase(titulo)){
+                    encontrado = e;
+                    usuario.devolverLivro(e);
+                    e.getLivro().setQuantidadeDisponivel(e.getLivro().getQuantidadeDisponivel()+1); //adiciona de novo
+                    IO.println("Livro retornado!");
+                }
+            }
+            throw new NaoEncontrado("Fail: Livro nao encontrado");
+        }
+    }
 
     public void editarLivro(String titulo, String novoTitulo, String novoAutor, String novoGenero, int novaQuantidade) throws LivroException{
         //String titulo é pra acessar o livro a ser editado pelo titulo dele
@@ -72,6 +145,15 @@ public class SistemaBiblioteca {
         }
 
         throw new LivroException("fail: livro nao encontrado.");
+    }
+    //editar usuario
+    public void editarUsuario(int matricula, String novoNome, int novaMatricula) throws UsuarioException {
+        Usuario u = pesquisarUsuario(matricula);
+        if (u == null) throw new UsuarioException("fail: usuario nao encontrado");
+        
+        u.setNome(novoNome);
+        u.setMatricula(novaMatricula);
+        System.out.println("Sucesso: Usuario editado!");
     }
 
     ////ler linha por linha e adicionar na lista do arquivo. cada linha, um objeto
@@ -213,16 +295,63 @@ public class SistemaBiblioteca {
     // Menu principal (simples para exemplo)
     public void menuPrincipal() {
         System.out.println("=== Sistema da Biblioteca ===");
-        System.out.println("1 - Cadastrar Livro");
-        System.out.println("2 - Listar Livros");
-        System.out.println("3 - Cadastrar Usuário");
-        System.out.println("4 - Realizar Empréstimo");
+        System.out.println("cadastrarLivro - Cadastrar Livro");
+        System.out.println("showLivros - Listar Livros");
+        System.out.println("cadastrarUsuario - Cadastrar Usuário");
+        System.out.println(" - Realizar Empréstimo");
         System.out.println("5 - Realizar Devolução");
         System.out.println("6 - Pesquisar Livro");
         System.out.println("7 - Verificar Atrasos");
         System.out.println("8 - Sair");
     }
-    
+    //GETTERS  GAY LOL
+    public ArrayList<Livro> getLivros(){
+        return livros;
+    }
+    public ArrayList<Usuario> getUsuarios(){
+        return usuarios;
+    }
+    public ArrayList<Emprestimo> getEmprestimos(){
+        return emprestimos;
+    }
+
+    //LISTAS
+    public String listarLivros(){
+        String ss="";
+        ss+="Lista de Livros:\n";
+        for(Livro l : livros){
+            ss += l.exibirInformacoes();
+            ss+="\n";
+            ss+="\\\\\\\\\\n";
+        }
+        return ss;
+    }
+
+    //Lista de Usuarios
+    public String listarUsuario(){
+        String ss="";
+        ss+="Lista de Usuarios:\n";
+        for(Usuario u : usuarios){
+            ss += "Nome: " +u.getNome();
+            ss += ";Matricula: " +u.getMatricula();
+            ss += ";Tipo de Usuario: " +u.tipoUsuario()+"\n";
+            ss+="\\\\\\\\\\n";
+        } //cornakkkkkkkk seria mais facil criar um toString la em usuario, mas só pensei nisso dps
+        return ss;
+    }
+
+    //Lista de Emprestimos
+    public String listarEmprestimos(){
+        String ss="";
+        ss+="Lista de Emprestimos:\n";
+        for(Emprestimo e : emprestimos){
+            ss += "Livro: " +e.getLivro();
+            ss += ";Usuario: " +e.getUsuario();
+            ss += ";Data de Emprestimo" + e.getDataEmprestimo();
+            ss += ";Data de Devolucao Prevista" + e.getDataDevolucaoPrevista()+"\n";
+            ss+="\\\\\\\\\\n";
+        } //cornakkkkkkkk seria mais facil criar um toString la em usuario, mas só pensei nisso dps
+        return ss;
+    }
+
 }
-
-

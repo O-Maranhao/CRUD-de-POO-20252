@@ -1,5 +1,4 @@
 import java.util.*;
-
 public class Bibliotecario extends Usuario{
     private boolean permissao_admin;
 
@@ -13,7 +12,7 @@ public class Bibliotecario extends Usuario{
     }
 
     //Métodos foda que só o Bibliotecário tem
-    //Cadastrar Livro
+    /* //Cadastrar Livro
     public Livro cadastrarLivro(SistemaBiblioteca sistema, String novoTitulo, String novoAutor, String novoGenero, int quantidadeDisponivel) throws Exception{
         if(!permissao_admin){ 
             throw new PermissaoNegada();
@@ -28,15 +27,7 @@ public class Bibliotecario extends Usuario{
         if(!permissao_admin){ 
             throw new PermissaoNegada();
         }
-        for(Livro le : sistema.){
-            if(le.getTitulo().equalsIgnoreCase(titulo)){
-                sistema.livros.remove(le);
-                IO.println("Sucesso! Livro removido!");
-                return;
-            }
-        }
-        // sistema.removerLivro(titulo); //Método do Sistema Biblioteca que vai exigir 
-        throw new NaoEncontrado("Fail: Livro nao encontrado");
+        sistema.removerLivro(titulo);
     }
     //Editar Livro
     public void editarLivro(SistemaBiblioteca sistema, String titulo, String novoTitulo, String novoAutor, String novoGenero, int novaQuantidade) throws Exception {
@@ -46,44 +37,44 @@ public class Bibliotecario extends Usuario{
         // sistema.editarLivro(titulo, novoTitulo, novoAutor, novoGenero, novaQuantidade);
         IO.println("Sucesso! Livro editado!");
         return ;
-    }
+    } */
     //Cadastrar Usuario
-    public Usuario cadastrarUsuario(SistemaBiblioteca sistema, String tipo, String nome, int matricula) throws Exception{ //Classe que cadastra usuário, a instancia criada depende do tipo do Usuário
-        if(!permissao_admin){ 
-            throw new PermissaoNegada();
-        }
-        switch(tipo){
-            case "a":
-                Usuario a = new Discente(nome, matricula);
-                sistema.usuarios.add(a);
-                return a;
-            case "b":
-                Usuario b = new Docente(nome, matricula);
-                sistema.usuarios.add(b);
-                return b;
-            case "c":
-                Usuario c = new Bibliotecario(nome, matricula, true);
-                sistema.usuarios.add(c);
-                return c;
-            default:
-                throw new ComandoInvalido();
-        }
-    }
+    // public Usuario cadastrarUsuario(SistemaBiblioteca sistema, String tipo, String nome, int matricula) throws Exception{ //Classe que cadastra usuário, a instancia criada depende do tipo do Usuário
+    //     if(!permissao_admin){ 
+    //         throw new PermissaoNegada();
+    //     }
+    //     switch(tipo){
+    //         case "a":
+    //             Usuario a = new Discente(nome, matricula);
+    //             sistema.usuarios.add(a);
+    //             return a;
+    //         case "b":
+    //             Usuario b = new Docente(nome, matricula);
+    //             sistema.usuarios.add(b);
+    //             return b;
+    //         case "c":
+    //             Usuario c = new Bibliotecario(nome, matricula, true);
+    //             sistema.usuarios.add(c);
+    //             return c;
+    //         default:
+    //             throw new ComandoInvalido();
+    //     }
+    // }
     //Remover Usuario
-    public void removerUsuario(SistemaBiblioteca sistema, String titulo) throws Exception {
-        if(!permissao_admin){ 
-            throw new PermissaoNegada();
-        }
-        for(Livro le : sistema.usuarios){
-            if(le.getTitulo().equalsIgnoreCase(titulo)){
-                sistema.livros.remove(le);
-                IO.println("Sucesso! Livro removido!");
-                return;
-            }
-        }
-        // sistema.removerLivro(titulo); //Método do Sistema Biblioteca que vai exigir 
-        throw new NaoEncontrado("Fail: Livro nao encontrado");
-    }
+    // public void removerUsuario(SistemaBiblioteca sistema, String titulo) throws Exception {
+    //     if(!permissao_admin){ 
+    //         throw new PermissaoNegada();
+    //     }
+    //     for(Livro le : sistema.getUsuarios()){
+    //         if(le.getTitulo().equalsIgnoreCase(titulo)){
+    //             sistema.removerLivro(titulo);
+    //             IO.println("Sucesso! Livro removido!");
+    //             return;
+    //         }
+    //     }
+    //     // sistema.removerLivro(titulo); //Método do Sistema Biblioteca que vai exigir 
+    //     throw new NaoEncontrado("Fail: Livro nao encontrado");
+    // }
     //Editar Usuario
     public void editarUsuario(String nome)throws Exception{
         if(!permissao_admin){ 
@@ -93,12 +84,12 @@ public class Bibliotecario extends Usuario{
     }
     //Listar Usuarios
     public ArrayList<Usuario> listarUsuarios(){
-        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>(   );
         return usuarios;
     }
     //Vizualizar Relatorios
     public void vizualizarRelatorio(String titulo){
-
+        
         return ;
     }
 }
